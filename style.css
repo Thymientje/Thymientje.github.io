@@ -62,3 +62,19 @@ footer {
 .title {
   text-align: center;
 }
+
+p {
+ font-family: Arial;
+}
+
+#white {
+  color: white;
+}
+
+.band {
+  font-style: italic;
+}
+
+.wiebenikdiv {
+  border: 5px outset red;
+}
