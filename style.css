@@ -78,3 +78,7 @@ p {
 .wiebenikdiv {
   border: 5px outset red;
 }
+
+table, th, td {
+  border: 1px solid black;
+}
