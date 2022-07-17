@@ -25,7 +25,78 @@
     </ul>
 <br><br>
 		<p class="welkomtekst">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar mattis nunc sed blandit libero. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus. Sed velit dignissim sodales ut eu. Ac tortor vitae purus faucibus ornare suspendisse sed nisi lacus. Sollicitudin tempor id eu nisl nunc mi ipsum faucibus. Pharetra sit amet aliquam id diam maecenas. Neque viverra justo nec ultrices dui sapien eget mi. Ipsum nunc aliquet bibendum enim facilisis gravida neque. In eu mi bibendum neque egestas congue quisque egestas. Turpis egestas maecenas pharetra convallis posuere morbi leo urna molestie. Ultricies leo integer malesuada nunc vel risus commodo. Leo duis ut diam quam nulla. Scelerisque varius morbi enim nunc faucibus a pellentesque sit amet. Tellus cras adipiscing enim eu turpis. Elit sed vulputate mi sit amet mauris. Id ornare arcu odio ut sem nulla. Consequat nisl vel pretium lectus quam id leo. In hac habitasse platea dictumst quisque sagittis purus sit amet.
+			<code>
+			
+const int ldrPin = A0;
+const int speaker = 11;
+const int knop = 3;
+
+/* Dingen hieronder zijn voor Teremin */
+int sensorValue = 0;
+int freq = 0;
+
+int sensorMin = 70;
+int sensorMax = 420;
+
+int freqMin = 50;
+int freqMax = 3000;
+
+/* De dingen hieronder zijn voor de knop */
+
+int volumeState = HIGH;
+int lastVolumeState;
+int buttonState = LOW;
+int lastbuttonstate = LOW;
+
+unsigned long lastDebounceTime = 0;
+unsigned long debounceDelay = 250;
+
+/*Deuntje bij opstarten*/
+void setup() {
+  Serial.begin(9600);
+ 
+    tone(11, 622.25, 200);
+      delay(150);
+    tone(11, 311.13, 100);
+      delay(150);
+    tone(11, 466.16, 300);
+      delay(150);
+    tone(11, 415.30, 200);
+      delay(150);
+    tone(11, 311.13, 200);
+      delay(150);
+    tone(11, 622.25, 200);
+      delay(150);
+    tone(11, 466.16, 600);
+      delay(5000);
+  
+  pinMode(knop, INPUT_PULLUP);
+  pinMode(13, OUTPUT);
+  lastDebounceTime = millis();
+}
+
+
+void loop() {
+  sensorValue = analogRead(ldrPin);
+  freq = map(sensorValue, sensorMin, sensorMax, freqMin, freqMax);
+  buttonState = digitalRead(knop);
+  Serial.println(sensorValue);
+
+  if ((buttonState == LOW) && (millis() - lastDebounceTime) > debounceDelay) {
+    lastDebounceTime = millis();
+    volumeState = !volumeState;
+    
+  }
+  
+  digitalWrite(13, volumeState);
+  if (volumeState == HIGH) {
+    tone(speaker, freq, 50);
+  }
+
+
+  delay(2);
+}	
+			</code>
 		</p>
 		<footer>
 				<hr>
