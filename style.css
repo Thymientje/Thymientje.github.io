@@ -86,7 +86,8 @@ table, th, td {
 code {
   font-family: Consolas,"courier new";
   color: crimson;
-  background-color: #f1f1f1;
+  background-color: #eee;
+  border-radius: 3px;
   padding: 2px;
   font-size: 105%;
 }
